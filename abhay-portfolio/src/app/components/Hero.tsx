@@ -2,11 +2,12 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 
+// Typewriter loop phrases
 const phrases = [
-  "Designing secure and scalable APIs.",
-  "Building performance-driven backend systems.",
-  "Crafting developer-first architecture.",
-  "Solving complex business logic with clean code.",
+  "A full-stack developer crafting bold, performant, and scalable apps.",
+  "Focused on clean code and creative solutions.",
+  "Building modern products with precision and care.",
+  "Turning ideas into beautiful user experiences.",
 ];
 
 export default function Hero() {
@@ -19,9 +20,8 @@ export default function Hero() {
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    if (inView) {
-      controls.start("visible");
-    }
+    if (!inView) return;
+    controls.start("visible");
   }, [inView, controls]);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export default function Hero() {
       timeout = setTimeout(() => setDeleting(true), 1200);
     } else if (deleting && text.length === 0) {
       setDeleting(false);
-      setIndex((prev) => (prev + 1) % phrases.length);
+      setIndex(prev => (prev + 1) % phrases.length);
     }
 
     return () => clearTimeout(timeout);
@@ -83,63 +83,75 @@ export default function Hero() {
         variants={containerVariants}
         initial="hidden"
         animate={controls}
-        className="flex flex-col items-center justify-center"
+        className="flex flex-col-reverse lg:flex-row items-center justify-center gap-12"
       >
-        {/* Name */}
-        <motion.h1
-          className="text-5xl sm:text-6xl font-extrabold text-gray-900 dark:text-white"
-          variants={heroVariants}
-        >
-          Hi, I'm{" "}
-          <span className="bg-gradient-to-r from-blue-500 to-cyan-400 text-transparent bg-clip-text">
-            Abhay Bava
-          </span>
-        </motion.h1>
-
-        {/* Title */}
-        <motion.p
-          className="mt-4 text-md sm:text-lg text-gray-600 dark:text-gray-400 tracking-wide uppercase font-semibold"
-          variants={heroVariants}
-        >
-          Backend Developer • API Architect • DevOps Enthusiast
-        </motion.p>
-
-        {/* Typewriter Animation */}
-        <motion.p
-          className="mt-6 max-w-2xl text-xl sm:text-2xl text-gray-700 dark:text-gray-300 font-medium min-h-[72px]"
-          variants={heroVariants}
-        >
-          {text}
-          <span className="blinking-cursor">|</span>
-        </motion.p>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 mt-10">
-          <motion.a
-            href="#projects"
+        {/* Left Section - Text */}
+        <div className="text-center lg:text-left max-w-xl">
+          <motion.h1
+            className="text-5xl sm:text-6xl font-extrabold text-gray-900 dark:text-white"
             variants={heroVariants}
-            className="px-8 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium tracking-wide shadow-lg hover:shadow-xl transition"
           >
-            See My Work
-          </motion.a>
+            Hi, I'm{" "}
+            <span className="bg-gradient-to-r from-blue-500 to-cyan-400 text-transparent bg-clip-text">
+              Abhay Bava
+            </span>
+          </motion.h1>
 
-          <motion.a
-            href="/AbhayBava_Resume.pdf"
-            download
+          <motion.p
             variants={heroVariants}
-            className="px-8 py-3 rounded-xl bg-white dark:bg-gray-800 text-blue-600 dark:text-cyan-400 border border-blue-600 dark:border-cyan-400 hover:bg-blue-50 dark:hover:bg-gray-700 transition font-medium shadow"
+            className="mt-4 text-md sm:text-lg text-gray-600 dark:text-gray-400 tracking-wide uppercase font-semibold"
           >
-            Download Resume
-          </motion.a>
+            Backend Developer • API Architect • DevOps Enthusiast
+          </motion.p>
+
+          <motion.p
+            className="mt-6 max-w-2xl text-xl sm:text-2xl text-gray-700 dark:text-gray-300 font-medium min-h-[72px]"
+            variants={heroVariants}
+          >
+            {text}
+            <span className="blinking-cursor">|</span>
+          </motion.p>
+
+          <div className="flex flex-col sm:flex-row gap-4 mt-10 justify-center lg:justify-start">
+            <motion.a
+              href="#projects"
+              variants={heroVariants}
+              className="px-8 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium tracking-wide shadow-lg hover:shadow-xl transition"
+            >
+              See My Work
+            </motion.a>
+
+            <motion.a
+              href="/AbhayBava_Resume.pdf"
+              download
+              variants={heroVariants}
+              className="px-8 py-3 rounded-xl bg-white dark:bg-gray-800 text-blue-600 dark:text-cyan-400 border border-blue-600 dark:border-cyan-400 hover:bg-blue-50 dark:hover:bg-gray-700 transition font-medium shadow"
+            >
+              Download Resume
+            </motion.a>
+          </div>
         </div>
+
+        {/* Right Section - Image */}
+        <motion.div
+          variants={heroVariants}
+          className="w-52 h-52 sm:w-64 sm:h-64 rounded-full overflow-hidden border-4 border-blue-500 shadow-xl hover:scale-105 transition duration-500"
+        >
+          <img
+            src="/images/AbhayBava.png"
+            alt="Abhay Bava"
+            className="w-full h-full object-cover"
+          />
+        </motion.div>
       </motion.div>
 
-      {/* Cursor CSS */}
+      {/* Cursor blinking style */}
       <style>{`
         .blinking-cursor {
           display: inline-block;
           margin-left: 4px;
           width: 1px;
+          height: 1.5rem;
           background-color: currentColor;
           animation: blink 1s step-start infinite;
         }
