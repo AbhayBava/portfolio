@@ -1,8 +1,8 @@
 "use client";
+
 import { useEffect, useRef, useState } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 
-// Typewriter loop phrases
 const phrases = [
   "A full-stack developer crafting bold, performant, and scalable apps.",
   "Focused on clean code and creative solutions.",
@@ -20,20 +20,19 @@ export default function Hero() {
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    if (!inView) return;
-    controls.start("visible");
+    if (inView) controls.start("visible");
   }, [inView, controls]);
 
   useEffect(() => {
-    const currentPhrase = phrases[index % phrases.length];
+    const current = phrases[index % phrases.length];
     let timeout: NodeJS.Timeout;
 
-    if (!deleting && text.length < currentPhrase.length) {
-      timeout = setTimeout(() => setText(currentPhrase.slice(0, text.length + 1)), 60);
+    if (!deleting && text.length < current.length) {
+      timeout = setTimeout(() => setText(current.slice(0, text.length + 1)), 60);
     } else if (deleting && text.length > 0) {
-      timeout = setTimeout(() => setText(currentPhrase.slice(0, text.length - 1)), 30);
-    } else if (!deleting && text.length === currentPhrase.length) {
-      timeout = setTimeout(() => setDeleting(true), 1200);
+      timeout = setTimeout(() => setText(current.slice(0, text.length - 1)), 30);
+    } else if (!deleting && text.length === current.length) {
+      timeout = setTimeout(() => setDeleting(true), 1400);
     } else if (deleting && text.length === 0) {
       setDeleting(false);
       setIndex(prev => (prev + 1) % phrases.length);
@@ -85,7 +84,7 @@ export default function Hero() {
         animate={controls}
         className="flex flex-col-reverse lg:flex-row items-center justify-center gap-12"
       >
-        {/* Left Section - Text */}
+        {/* LEFT SECTION */}
         <div className="text-center lg:text-left max-w-xl">
           <motion.h1
             className="text-5xl sm:text-6xl font-extrabold text-gray-900 dark:text-white"
@@ -120,7 +119,6 @@ export default function Hero() {
             >
               See My Work
             </motion.a>
-
             <motion.a
               href="/AbhayBava_Resume.pdf"
               download
@@ -132,7 +130,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Right Section - Image */}
+        {/* RIGHT SECTION - IMAGE */}
         <motion.div
           variants={heroVariants}
           className="w-52 h-52 sm:w-64 sm:h-64 rounded-full overflow-hidden border-4 border-blue-500 shadow-xl hover:scale-105 transition duration-500"
@@ -145,7 +143,7 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Cursor blinking style */}
+      {/* BLINKING CURSOR STYLES */}
       <style>{`
         .blinking-cursor {
           display: inline-block;
