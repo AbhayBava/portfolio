@@ -1,18 +1,46 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
-import { Typewriter } from "react-simple-typewriter";
+
+// Typewriter loop phrases
+const phrases = [
+  "A full-stack developer crafting bold, performant, and scalable apps.",
+  "Focused on clean code and creative solutions.",
+  "Building modern products with precision and care.",
+  "Turning ideas into beautiful user experiences.",
+];
 
 export default function Hero() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.6 });
   const controls = useAnimation();
 
+  const [index, setIndex] = useState(0);
+  const [text, setText] = useState("");
+  const [deleting, setDeleting] = useState(false);
+
   useEffect(() => {
-    if (inView) {
-      controls.start("visible");
-    }
+    if (!inView) return;
+    controls.start("visible");
   }, [inView, controls]);
+
+  useEffect(() => {
+    const currentPhrase = phrases[index % phrases.length];
+    let timeout: NodeJS.Timeout;
+
+    if (!deleting && text.length < currentPhrase.length) {
+      timeout = setTimeout(() => setText(currentPhrase.slice(0, text.length + 1)), 60);
+    } else if (deleting && text.length > 0) {
+      timeout = setTimeout(() => setText(currentPhrase.slice(0, text.length - 1)), 30);
+    } else if (!deleting && text.length === currentPhrase.length) {
+      timeout = setTimeout(() => setDeleting(true), 1200);
+    } else if (deleting && text.length === 0) {
+      setDeleting(false);
+      setIndex(prev => (prev + 1) % phrases.length);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [text, deleting, index]);
 
   const containerVariants = {
     hidden: {},
@@ -57,7 +85,6 @@ export default function Hero() {
         animate={controls}
         className="flex flex-col items-center justify-center"
       >
-        {/* Name */}
         <motion.h1
           className="text-5xl sm:text-6xl font-extrabold text-gray-900 dark:text-white"
           variants={heroVariants}
@@ -68,44 +95,49 @@ export default function Hero() {
           </span>
         </motion.h1>
 
-        {/* Professional Role */}
         <motion.p
+          className="mt-6 max-w-2xl text-lg sm:text-xl text-gray-700 dark:text-gray-300 min-h-[72px]"
           variants={heroVariants}
-          className="mt-4 text-md sm:text-lg text-gray-600 dark:text-gray-400 tracking-wide uppercase font-semibold"
         >
-          Backend Developer • API Architect • DevOps Enthusiast
+          {text}
+          <span className="blinking-cursor">|</span>
         </motion.p>
 
-        {/* Animated Tagline */}
-        <motion.p
-          variants={heroVariants}
-          className="mt-6 max-w-2xl text-xl sm:text-2xl text-gray-700 dark:text-gray-300 font-medium"
-        >
-          <Typewriter
-            words={[
-              "Designing secure and scalable APIs.",
-              "Building performance-driven backend systems.",
-              "Crafting developer-first architecture.",
-              "Solving complex business logic with clean code.",
-            ]}
-            loop={true}
-            cursor
-            cursorStyle="|"
-            typeSpeed={80}
-            deleteSpeed={40}
-            delaySpeed={1600}
-          />
-        </motion.p>
+        <div className="flex flex-col sm:flex-row gap-4 mt-10">
+          {/* View Projects */}
+          <motion.a
+            href="#projects"
+            variants={heroVariants}
+            className="px-8 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium tracking-wide shadow-lg hover:shadow-xl transition"
+          >
+            See My Work
+          </motion.a>
 
-        {/* CTA Button */}
-        <motion.a
-          href="#projects"
-          variants={heroVariants}
-          className="mt-10 px-8 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium tracking-wide shadow-lg hover:shadow-xl transition"
-        >
-          See My Work
-        </motion.a>
+          {/* Download Resume */}
+          <motion.a
+            href="/AbhayBava.pdf"
+            download
+            variants={heroVariants}
+            className="px-8 py-3 rounded-xl bg-white dark:bg-gray-800 text-blue-600 dark:text-cyan-400 border border-blue-600 dark:border-cyan-400 hover:bg-blue-50 dark:hover:bg-gray-700 transition font-medium shadow"
+          >
+            Download Resume
+          </motion.a>
+        </div>
       </motion.div>
+
+      {/* Cursor animation */}
+      <style>{`
+        .blinking-cursor {
+          display: inline-block;
+          margin-left: 4px;
+          width: 1px;
+          background-color: currentColor;
+          animation: blink 1s step-start infinite;
+        }
+        @keyframes blink {
+          50% { opacity: 0 }
+        }
+      `}</style>
     </section>
   );
 }
