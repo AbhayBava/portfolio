@@ -1,6 +1,7 @@
 // components/WorkExperience.tsx
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { FaBriefcase, FaStar } from "react-icons/fa";
 
@@ -31,7 +32,33 @@ const experiences = [
   },
 ];
 
+const cardVariants = {
+  collapsed: {
+    rotateX: 0,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: [0.4, 0, 0.2, 1],
+    },
+  },
+  expanded: {
+    rotateX: 0,
+    scale: 1.02,
+    boxShadow: "0 12px 25px rgba(0, 0, 0, 0.2)",
+    transition: {
+      duration: 0.5,
+      ease: [0.4, 0, 0.2, 1],
+    },
+  },
+};
+
 export default function WorkExperience() {
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
+  const toggleCard = (index: number) => {
+    setExpandedIndex(index === expandedIndex ? null : index);
+  };
+
   return (
     <section
       id="experience"
@@ -41,32 +68,53 @@ export default function WorkExperience() {
         <h2 className="text-4xl font-bold mb-12 text-center">Work Experience</h2>
 
         <div className="relative border-l-2 border-blue-500 dark:border-cyan-400 pl-6 space-y-12">
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              viewport={{ once: true }}
-              className="relative"
-            >
-              {/* Timeline marker */}
-              <span className="absolute left-[-36px] top-1">
-                <div className="w-7 h-7 flex items-center justify-center rounded-full bg-white dark:bg-gray-800 border-2 border-blue-500 dark:border-cyan-400 shadow-md">
-                  {exp.icon}
-                </div>
-              </span>
+          {experiences.map((exp, index) => {
+            const isExpanded = expandedIndex === index;
+            return (
+              <motion.div
+                key={index}
+                variants={cardVariants}
+                animate={isExpanded ? "expanded" : "collapsed"}
+                onClick={() => toggleCard(index)}
+                whileHover={{ scale: 1.01 }}
+                className={`relative cursor-pointer transition-transform duration-500`}
+              >
+                {/* Timeline marker */}
+                <span className="absolute left-[-36px] top-1">
+                  <div className="w-7 h-7 flex items-center justify-center rounded-full bg-white dark:bg-gray-800 border-2 border-blue-500 dark:border-cyan-400 shadow-md">
+                    {exp.icon}
+                  </div>
+                </span>
 
-              {/* Content */}
-              <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-md">
-                <h3 className="text-xl font-semibold">{exp.role}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
-                  {exp.company} • {exp.date}
-                </p>
-                <p className="text-gray-700 dark:text-gray-300">{exp.description}</p>
-              </div>
-            </motion.div>
-          ))}
+                {/* Content */}
+                <motion.div
+                  className={`bg-gray-50 dark:bg-gray-800 p-6 rounded-xl shadow-lg transition-all duration-500 ${
+                    isExpanded ? "scale-[1.02]" : ""
+                  }`}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                >
+                  <h3 className="text-xl font-semibold">{exp.role}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                    {exp.company} • {exp.date}
+                  </p>
+
+                  <motion.p
+                    className="text-gray-700 dark:text-gray-300"
+                    initial={false}
+                    animate={{
+                      height: isExpanded ? "auto" : "0px",
+                      opacity: isExpanded ? 1 : 0,
+                    }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    {exp.description}
+                  </motion.p>
+                </motion.div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
