@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
-
+import { Typewriter } from "react-simple-typewriter";
 
 export default function Hero() {
   const ref = useRef(null);
@@ -49,7 +49,7 @@ export default function Hero() {
     <section
       id="hero"
       ref={ref}
-      className="min-h-screen flex flex-col items-center justify-center text-center py-24 px-6 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 perspective-1000"
+      className="min-h-screen flex flex-col items-center justify-center text-center py-24 px-6 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800"
     >
       <motion.div
         variants={containerVariants}
@@ -57,6 +57,7 @@ export default function Hero() {
         animate={controls}
         className="flex flex-col items-center justify-center"
       >
+        {/* Name */}
         <motion.h1
           className="text-5xl sm:text-6xl font-extrabold text-gray-900 dark:text-white"
           variants={heroVariants}
@@ -67,13 +68,36 @@ export default function Hero() {
           </span>
         </motion.h1>
 
+        {/* Professional Role */}
         <motion.p
-          className="mt-6 max-w-2xl text-lg sm:text-xl text-gray-700 dark:text-gray-300"
           variants={heroVariants}
+          className="mt-4 text-md sm:text-lg text-gray-600 dark:text-gray-400 tracking-wide uppercase font-semibold"
         >
-          A full-stack developer crafting bold, performant, and scalable apps.
+          Backend Developer • API Architect • DevOps Enthusiast
         </motion.p>
 
+        {/* Animated Tagline */}
+        <motion.p
+          variants={heroVariants}
+          className="mt-6 max-w-2xl text-xl sm:text-2xl text-gray-700 dark:text-gray-300 font-medium"
+        >
+          <Typewriter
+            words={[
+              "Designing secure and scalable APIs.",
+              "Building performance-driven backend systems.",
+              "Crafting developer-first architecture.",
+              "Solving complex business logic with clean code.",
+            ]}
+            loop={true}
+            cursor
+            cursorStyle="|"
+            typeSpeed={80}
+            deleteSpeed={40}
+            delaySpeed={1600}
+          />
+        </motion.p>
+
+        {/* CTA Button */}
         <motion.a
           href="#projects"
           variants={heroVariants}
