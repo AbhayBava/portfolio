@@ -3,6 +3,7 @@ import Hero from "../app/components/Hero";
 import About from "../app/components/About";
 // import Projects from "../app/components/Projects";
 import Contact from "../app/components/Contact";
+import Projects from "../app/components/Projects";
 import Footer from "../app/components/Footer";
 
 export default function HomePage() {
@@ -11,6 +12,7 @@ export default function HomePage() {
       <Header />
       <Hero />
       <About />
+      <Projects />
       <Contact />
       <Footer />
     </main>
