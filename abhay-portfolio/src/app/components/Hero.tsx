@@ -120,7 +120,7 @@ export default function Hero() {
               See My Work
             </motion.a>
             <motion.a
-              href="/AbhayBava_Resume.pdf"
+              href="/AbhayBava.pdf"
               download
               variants={heroVariants}
               className="px-8 py-3 rounded-xl bg-white dark:bg-gray-800 text-blue-600 dark:text-cyan-400 border border-blue-600 dark:border-cyan-400 hover:bg-blue-50 dark:hover:bg-gray-700 transition font-medium shadow"
