@@ -1,13 +1,18 @@
-import Header from '../app/components/Header';
-import Hero from '../app/components/Hero';
+import Header from "../app/components/Header";
+import Hero from "../app/components/Hero";
+import About from "../app/components/About";
+import Projects from "../app/components/Projects";
+// import Contact from "../app/components/Contact";
+import Footer from "../app/components/Footer";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <main className="bg-gray-50 dark:bg-zinc-900 text-gray-900 dark:text-white min-h-screen">
+    <main className="bg-white dark:bg-gray-900 text-gray-800 dark:text-white">
       <Header />
-      <div className="pt-20">
-        <Hero />
-      </div>
+      <Hero />
+      <About />
+      <Projects />
+      <Footer />
     </main>
   );
 }
