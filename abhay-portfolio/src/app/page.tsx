@@ -4,6 +4,7 @@ import About from "../app/components/About";
 import Contact from "../app/components/Contact";
 import Projects from "../app/components/Projects";
 import WorkExperience from "../app/components/WorkExperience";
+import Technologies from "../app/components/Technologies";
 import Footer from "../app/components/Footer";
 
 export default function HomePage() {
@@ -13,6 +14,7 @@ export default function HomePage() {
       <Hero />
       <About />
       <WorkExperience />
+      <Technologies />
       <Projects />
       <Contact />
       <Footer />
