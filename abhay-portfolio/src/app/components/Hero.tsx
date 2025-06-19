@@ -2,12 +2,11 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 
-// Typewriter loop phrases
 const phrases = [
-  "A full-stack developer crafting bold, performant, and scalable apps.",
-  "Focused on clean code and creative solutions.",
-  "Building modern products with precision and care.",
-  "Turning ideas into beautiful user experiences.",
+  "Designing secure and scalable APIs.",
+  "Building performance-driven backend systems.",
+  "Crafting developer-first architecture.",
+  "Solving complex business logic with clean code.",
 ];
 
 export default function Hero() {
@@ -20,8 +19,9 @@ export default function Hero() {
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    if (!inView) return;
-    controls.start("visible");
+    if (inView) {
+      controls.start("visible");
+    }
   }, [inView, controls]);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export default function Hero() {
       timeout = setTimeout(() => setDeleting(true), 1200);
     } else if (deleting && text.length === 0) {
       setDeleting(false);
-      setIndex(prev => (prev + 1) % phrases.length);
+      setIndex((prev) => (prev + 1) % phrases.length);
     }
 
     return () => clearTimeout(timeout);
@@ -85,6 +85,7 @@ export default function Hero() {
         animate={controls}
         className="flex flex-col items-center justify-center"
       >
+        {/* Name */}
         <motion.h1
           className="text-5xl sm:text-6xl font-extrabold text-gray-900 dark:text-white"
           variants={heroVariants}
@@ -95,16 +96,25 @@ export default function Hero() {
           </span>
         </motion.h1>
 
+        {/* Title */}
         <motion.p
-          className="mt-6 max-w-2xl text-lg sm:text-xl text-gray-700 dark:text-gray-300 min-h-[72px]"
+          className="mt-4 text-md sm:text-lg text-gray-600 dark:text-gray-400 tracking-wide uppercase font-semibold"
+          variants={heroVariants}
+        >
+          Backend Developer • API Architect • DevOps Enthusiast
+        </motion.p>
+
+        {/* Typewriter Animation */}
+        <motion.p
+          className="mt-6 max-w-2xl text-xl sm:text-2xl text-gray-700 dark:text-gray-300 font-medium min-h-[72px]"
           variants={heroVariants}
         >
           {text}
           <span className="blinking-cursor">|</span>
         </motion.p>
 
+        {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 mt-10">
-          {/* View Projects */}
           <motion.a
             href="#projects"
             variants={heroVariants}
@@ -113,9 +123,8 @@ export default function Hero() {
             See My Work
           </motion.a>
 
-          {/* Download Resume */}
           <motion.a
-            href="/AbhayBava.pdf"
+            href="/AbhayBava_Resume.pdf"
             download
             variants={heroVariants}
             className="px-8 py-3 rounded-xl bg-white dark:bg-gray-800 text-blue-600 dark:text-cyan-400 border border-blue-600 dark:border-cyan-400 hover:bg-blue-50 dark:hover:bg-gray-700 transition font-medium shadow"
@@ -125,7 +134,7 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      {/* Cursor animation */}
+      {/* Cursor CSS */}
       <style>{`
         .blinking-cursor {
           display: inline-block;
