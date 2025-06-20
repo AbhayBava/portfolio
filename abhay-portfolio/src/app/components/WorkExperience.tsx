@@ -10,7 +10,7 @@ const experiences = [
   {
     role: "Junior Software Developer",
     company: "Orionik Technologies",
-    date: "May 2024 - Present",
+    date: "Mar 2024 - Present",
     description:
       "Promoted to Junior Developer, leading features for customer onboarding, scaling APIs, and DevOps workflows.",
     icon: <FaBriefcase className="text-green-600" />,
@@ -20,7 +20,7 @@ const experiences = [
   {
     role: "Associate Software Developer",
     company: "Orionik Technologies",
-    date: "Nov 2023 - Apr 2024",
+    date: "Sept 2024 - Feb 2024",
     description:
       "Worked on backend services in Node.js, contributed to core APIs, and optimized DB queries.",
     icon: <FaBriefcase className="text-blue-600" />,

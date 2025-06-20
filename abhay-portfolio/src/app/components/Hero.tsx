@@ -7,7 +7,7 @@ const phrases = [
   "A full-stack developer crafting bold, performant, and scalable apps.",
   "Focused on clean code and creative solutions.",
   "Building modern products with precision and care.",
-  "Turning ideas into beautiful user experiences.",
+  "Turning ideas into real time worlds with code.",
 ];
 
 export default function Hero() {
@@ -100,7 +100,7 @@ export default function Hero() {
             variants={heroVariants}
             className="mt-4 text-md sm:text-lg text-gray-600 dark:text-gray-400 tracking-wide uppercase font-semibold"
           >
-            Backend Developer • API Architect • DevOps Enthusiast
+            Full Stack Developer • DevOps Engineer 
           </motion.p>
 
           <motion.p
