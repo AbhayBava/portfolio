@@ -31,7 +31,7 @@ export default function Footer() {
           />
           <div className="text-center sm:text-left">
             <h3 className="text-xl font-bold tracking-wide text-white">Abhay Bava</h3>
-            <p className="text-sm text-gray-400">Full Stack Engineer • API Architect</p>
+            <p className="text-sm text-gray-400">Full Stack Engineer</p>
             <p className="text-xs mt-1 text-gray-500">&copy; {year} All rights reserved.</p>
           </div>
         </div>
