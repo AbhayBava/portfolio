@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { Sun, Moon, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -9,6 +9,9 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const { theme, setTheme } = useTheme();
+
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const navLinks = [
     { href: "#about", label: "About" },
@@ -20,8 +23,8 @@ export default function Header() {
     hover: {
       scale: 1.1,
       y: -2,
-      transition: { duration: 0.2 }
-    }
+      transition: { duration: 0.2 },
+    },
   };
 
   const mobileMenuVariants = {
@@ -29,18 +32,18 @@ export default function Header() {
       height: "auto",
       opacity: 1,
       y: 0,
-      transition: { duration: 0.3, ease: "easeOut" }
+      transition: { duration: 0.3, ease: "easeOut" },
     },
     closed: {
       height: 0,
       opacity: 0,
       y: -20,
-      transition: { duration: 0.2, ease: "easeIn" }
-    }
+      transition: { duration: 0.2, ease: "easeIn" },
+    },
   };
 
   return (
-    <motion.header 
+    <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
@@ -88,21 +91,23 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* Theme Toggle + Mobile Menu */}
+        {/* Mobile Only: Theme Toggle + Hamburger */}
         <div className="flex items-center gap-4">
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-            className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
-          >
-            <motion.div
-              animate={{ rotate: theme === "dark" ? 180 : 0 }}
-              transition={{ duration: 0.4 }}
+          {mounted && (
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+              className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 md:hidden"
             >
-              {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-            </motion.div>
-          </motion.button>
+              <motion.div
+                animate={{ rotate: theme === "dark" ? 180 : 0 }}
+                transition={{ duration: 0.4 }}
+              >
+                {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+              </motion.div>
+            </motion.button>
+          )}
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
@@ -115,7 +120,7 @@ export default function Header() {
       </div>
 
       {/* Mobile Menu */}
-      {/* <AnimatePresence>
+      <AnimatePresence>
         {isOpen && (
           <motion.div
             variants={mobileMenuVariants}
@@ -142,7 +147,7 @@ export default function Header() {
             ))}
           </motion.div>
         )}
-      </AnimatePresence> */}
+      </AnimatePresence>
     </motion.header>
   );
 }
