@@ -4,19 +4,22 @@ import { FaGithub } from "react-icons/fa";
 
 const projects = [
   {
-    title: "AI Chatbot",
-    description: "Built a smart chatbot using Node.js, OpenAI, and React for customer support.",
-    github: "https://github.com/your-username/ai-chatbot",
-  },
-  {
     title: "Salon Booking System",
     description: "Full-stack salon appointment system with multi-tenant architecture.",
-    github: "https://github.com/your-username/salon-booking",
+    github: "https://github.com/AbhayBava/Salon_Management_System",
+    image: "/images/salon.png", // Add image URL here
   },
   {
     title: "Portfolio Website",
     description: "Next.js portfolio with Framer Motion, dynamic typewriter, and dark mode.",
-    github: "https://github.com/your-username/portfolio",
+    github: "https://github.com/AbhayBava/portfolio",
+    image: "/images/portfolio.png", // Add image URL here
+  },
+  {
+    title: "Student Portal",
+    description: "A fully responsive student portal built using HTML, CSS, JavaScript, and PHP. This platform enables students to access and manage their academic records, assignments, and grades in a user-friendly interface. It integrates real-time data management using PHP backend and JavaScript for interactive user experiences.",
+    github: "https://github.com/AbhayBava/Student-Portal",
+    image: "/images/studentportal.png", // Add image URL here
   },
 ];
 
@@ -34,7 +37,7 @@ export default function Projects() {
   return (
     <section id="projects" className="py-20 px-6 bg-gray-50 dark:bg-gray-900">
       <div className="max-w-6xl mx-auto text-center mb-12">
-        <h2 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-2">Projects</h2>
+        <h2 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-2">My Projects</h2>
         <p className="text-lg text-gray-600 dark:text-gray-400">
           Some of my featured work
         </p>
@@ -48,23 +51,33 @@ export default function Projects() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 hover:shadow-xl transition"
+            className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105"
           >
-            <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
-              {project.title}
-            </h3>
-            <p className="mt-2 text-gray-600 dark:text-gray-300">
-              {project.description}
-            </p>
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mt-4 text-blue-600 dark:text-cyan-400 hover:underline font-medium"
-            >
-              <FaGithub />
-              View on GitHub
-            </a>
+            {/* Project Image */}
+            <div className="relative">
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-48 object-cover rounded-t-xl"
+              />
+              <motion.div
+                className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-black bg-opacity-40 rounded-t-xl opacity-0 transition-opacity duration-300 hover:opacity-100"
+              >
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white text-xl font-bold hover:underline"
+                >
+                  View on GitHub
+                </a>
+              </motion.div>
+            </div>
+
+            <div className="p-6">
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-white">{project.title}</h3>
+              <p className="mt-2 text-gray-600 dark:text-gray-300">{project.description}</p>
+            </div>
           </motion.div>
         ))}
       </div>
