@@ -100,7 +100,7 @@ export default function Hero() {
             variants={heroVariants}
             className="mt-4 text-md sm:text-lg text-gray-600 dark:text-gray-400 tracking-wide uppercase font-semibold"
           >
-            Full Stack Developer • DevOps Engineer 
+            Full Stack Developer • DevOps Engineer
           </motion.p>
 
           <motion.p
@@ -133,7 +133,8 @@ export default function Hero() {
         {/* RIGHT SECTION - IMAGE */}
         <motion.div
           variants={heroVariants}
-          className="w-52 h-52 sm:w-64 sm:h-64 rounded-full overflow-hidden border-4 border-blue-500 shadow-xl hover:scale-105 transition duration-500"
+          className="w-52 h-52 sm:w-64 sm:h-64 rounded-full overflow-hidden shadow-xl hover:scale-105 transition duration-500"
+          style={{border: "4px solid #00A2FF"}}
         >
           <img
             src="/images/AbhayBava.png"
