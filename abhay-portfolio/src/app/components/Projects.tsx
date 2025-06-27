@@ -7,19 +7,19 @@ const projects = [
     title: "Salon Booking System",
     description: "Full-stack salon appointment system with multi-tenant architecture.",
     github: "https://github.com/AbhayBava/Salon_Management_System",
-    image: "/images/salon.png", // Add image URL here
+    image: "/images/salon.png", 
   },
   {
     title: "Portfolio Website",
     description: "Next.js portfolio with Framer Motion, dynamic typewriter, and dark mode.",
     github: "https://github.com/AbhayBava/portfolio",
-    image: "/images/portfolio.png", // Add image URL here
+    image: "/images/portfolio.png", 
   },
   {
     title: "Student Portal",
-    description: "A fully responsive student portal built using HTML, CSS, JavaScript, and PHP. This platform enables students to access and manage their academic records, assignments, and grades in a user-friendly interface. It integrates real-time data management using PHP backend and JavaScript for interactive user experiences.",
+    description: "A fully responsive student portal built using HTML, CSS, JavaScript, and PHP.",
     github: "https://github.com/AbhayBava/Student-Portal",
-    image: "/images/studentportal.png", // Add image URL here
+    image: "/images/studentportal.png", 
   },
 ];
 
@@ -51,7 +51,7 @@ export default function Projects() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105"
+            className="bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105"
           >
             {/* Project Image */}
             <div className="relative">
