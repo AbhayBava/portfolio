@@ -61,7 +61,7 @@ export default function Projects() {
                 className="w-full h-48 object-cover rounded-t-xl"
               />
               <motion.div
-                className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-black bg-opacity-40 rounded-t-xl opacity-0 transition-opacity duration-300 hover:opacity-100"
+                className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-black bg-opacity-30 rounded-t-xl opacity-0 transition-opacity duration-300 hover:opacity-100"
               >
                 <a
                   href={project.github}

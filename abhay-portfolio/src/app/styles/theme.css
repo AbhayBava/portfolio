@@ -1,0 +1,8 @@
+.home-button {
+    background-color: #00A2FF;
+}
+
+.home-button:hover {
+    background-color: #23abfaf4;
+    box-shadow: 0px 2px 12px rgba(39, 119, 205, 0.77);
+}

@@ -54,7 +54,7 @@ export default function Contact() {
           variants={buttonFloat}
           initial="initial"
           animate="animate"
-          className="inline-block px-8 py-3 rounded-full bg-blue-600 text-white font-medium shadow-lg hover:shadow-blue-400/40 hover:bg-blue-700 transition duration-300"
+          className="inline-block px-8 py-3 rounded-full home-button text-white font-medium shadow-lg hover:shadow-blue-400/40 transition duration-300"
         >
           Send Email
         </motion.a>

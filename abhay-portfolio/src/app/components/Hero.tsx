@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
-
+import "../styles/theme.css";
 const phrases = [
   "A full-stack developer crafting bold, performant, and scalable apps.",
   "Focused on clean code and creative solutions.",
@@ -115,7 +115,7 @@ export default function Hero() {
             <motion.a
               href="#projects"
               variants={heroVariants}
-              className="px-8 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium tracking-wide shadow-lg hover:shadow-xl transition"
+              className="px-8 py-3 rounded-xl home-button text-white font-medium tracking-wide shadow-lg hover:shadow-xl transition"
             >
               See My Work
             </motion.a>
