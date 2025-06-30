@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { toast } from "react-toastify";  // For toast notifications
-import emailjs from "emailjs-com";  // EmailJS SDK
-import "react-toastify/dist/ReactToastify.css";  // Import the CSS for toast
+import { toast } from "react-toastify";
+import emailjs from "emailjs-com";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -13,26 +13,25 @@ export default function Contact() {
     message: "",
   });
 
-  // Handle form submission
-  const handleSubmit = async (e : any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     setIsSubmitting(true);
-    toast.info("Sending email...", { autoClose: 5000 }); // Info toast while sending email
+    toast.info("Sending email...", { autoClose: 5000 });
 
     try {
-      // Send email using EmailJS
       const result = await emailjs.send(
-        "service_phn0b3c", 
-        "template_jvvrngb", 
+        "service_phn0b3c",
+        "template_jvvrngb",
         formData,
-        "T0xE2vToKMMVadvOK" 
+        "T0xE2vToKMMVadvOK"
       );
 
-      // Success toast
-      toast.success("Email sent successfully!", { autoClose: 5000 });
-      setFormData({ name: "", email: "", message: "" });  // Clear the form after submission
+      toast.success("Thank you for contacting us! I'll get back to you soon.", {
+        autoClose: 5000,
+      });
+
+      setFormData({ name: "", email: "", message: "" });
     } catch (error) {
-      // Error toast
       console.error("Error sending email:", error);
       toast.error("Failed to send email. Please try again.", { autoClose: 5000 });
     } finally {
@@ -40,8 +39,7 @@ export default function Contact() {
     }
   };
 
-  // Handle form input changes
-  const handleInputChange = (e : any) => {
+  const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
@@ -84,7 +82,6 @@ export default function Contact() {
           Let's connect! I'm open to freelance, full-time, and collaborative projects.
         </p>
 
-        {/* Contact Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"
@@ -111,7 +108,6 @@ export default function Contact() {
             className="w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
           ></textarea>
 
-          {/* Show loading animation */}
           {isSubmitting && (
             <motion.div
               initial={{ opacity: 0 }}
@@ -131,6 +127,7 @@ export default function Contact() {
               ></motion.div>
             </motion.div>
           )}
+
           <motion.button
             type="submit"
             disabled={isSubmitting}
