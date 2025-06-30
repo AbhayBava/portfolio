@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import emailjs from "emailjs-com";
 import "react-toastify/dist/ReactToastify.css";
+import "../styles/theme.css";
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -131,7 +132,7 @@ export default function Contact() {
           <motion.button
             type="submit"
             disabled={isSubmitting}
-            className="inline-block px-8 py-3 rounded-full bg-blue-600 text-white font-medium shadow-lg hover:shadow-xl transition duration-300 disabled:opacity-50"
+            className="inline-block px-8 py-3 rounded-full text-white home-button font-medium shadow-lg hover:shadow-xl transition duration-300 disabled:opacity-50"
           >
             {isSubmitting ? "Sending..." : "Send Email"}
           </motion.button>
