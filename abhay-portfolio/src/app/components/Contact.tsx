@@ -1,7 +1,54 @@
 "use client";
+import { useState } from "react";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";  // For toast notifications
+import emailjs from "emailjs-com";  // EmailJS SDK
+import "react-toastify/dist/ReactToastify.css";  // Import the CSS for toast
 
 export default function Contact() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  // Handle form submission
+  const handleSubmit = async (e : any) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    toast.info("Sending email...", { autoClose: 5000 }); // Info toast while sending email
+
+    try {
+      // Send email using EmailJS
+      const result = await emailjs.send(
+        "service_phn0b3c", 
+        "template_jvvrngb", 
+        formData,
+        "T0xE2vToKMMVadvOK" 
+      );
+
+      // Success toast
+      toast.success("Email sent successfully!", { autoClose: 5000 });
+      setFormData({ name: "", email: "", message: "" });  // Clear the form after submission
+    } catch (error) {
+      // Error toast
+      console.error("Error sending email:", error);
+      toast.error("Failed to send email. Please try again.", { autoClose: 5000 });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Handle form input changes
+  const handleInputChange = (e : any) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
   const cardVariants = {
     hidden: { opacity: 0, rotateX: -90, y: 100, scale: 0.8 },
     visible: {
@@ -14,18 +61,6 @@ export default function Contact() {
         stiffness: 80,
         damping: 20,
         duration: 0.8,
-      },
-    },
-  };
-
-  const buttonFloat = {
-    initial: { y: 0 },
-    animate: {
-      y: [0, -4, 0],
-      transition: {
-        repeat: Infinity,
-        duration: 2,
-        ease: "easeInOut",
       },
     },
   };
@@ -49,15 +84,61 @@ export default function Contact() {
           Let's connect! I'm open to freelance, full-time, and collaborative projects.
         </p>
 
-        <motion.a
-          href="mailto:abhay@example.com"
-          variants={buttonFloat}
-          initial="initial"
-          animate="animate"
-          className="inline-block px-8 py-3 rounded-full home-button text-white font-medium shadow-lg hover:shadow-blue-400/40 transition duration-300"
-        >
-          Send Email
-        </motion.a>
+        {/* Contact Form */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
+            placeholder="Your Name"
+            className="w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            placeholder="Your Email"
+            className="w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <textarea
+            name="message"
+            value={formData.message}
+            onChange={handleInputChange}
+            placeholder="Your Message"
+            rows="6"
+            className="w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          ></textarea>
+
+          {/* Show loading animation */}
+          {isSubmitting && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-sm text-gray-600 dark:text-gray-400"
+            >
+              Sending email...
+              <motion.div
+                animate={{
+                  rotate: [0, 360],
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 1,
+                }}
+                className="inline-block ml-2 w-4 h-4 border-4 border-t-4 border-gray-600 dark:border-white border-solid rounded-full"
+              ></motion.div>
+            </motion.div>
+          )}
+          <motion.button
+            type="submit"
+            disabled={isSubmitting}
+            className="inline-block px-8 py-3 rounded-full bg-blue-600 text-white font-medium shadow-lg hover:shadow-xl transition duration-300 disabled:opacity-50"
+          >
+            {isSubmitting ? "Sending..." : "Send Email"}
+          </motion.button>
+        </form>
       </motion.div>
     </section>
   );
