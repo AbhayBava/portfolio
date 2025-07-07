@@ -94,6 +94,9 @@ export default function About() {
                     <strong>Firebase</strong> for push notifications
                   </li>
                   <li>
+                    <strong>Zepto Mail</strong> for push notifications
+                  </li>
+                  <li>
                     <strong>Stripe</strong> for billing and subscriptions
                   </li>
                 </ul>
